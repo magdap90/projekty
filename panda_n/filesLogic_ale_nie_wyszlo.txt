@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+  <head>
+
+  </head>
+<?php
+// connect to the database
+//$conn = mysqli_connect('localhost', 'root', '', 'file-management');
+
+session_start();
+
+/*$query = "
+SELECT * FROM login 
+WHERE user_id != '".$_SESSION['user_id']."' 
+";
+
+$statement = $connect->prepare($query);
+
+$statement->execute();
+
+$result = $statement->fetchAll();*/
+
+include('database_connection.php');
+
+$sql = "SELECT * FROM files";
+//$result = mysqli_query($connect, $sql);
+$result = $connect->prepare($sql);
+
+$result ->execute();
+
+//$files = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$files = $result ->fetchAll();
+
+
+
+
+// Uploads files
+if (isset($_POST['save'])) { // if save button on the form is clicked
+    // name of the uploaded file
+    $filename = $_FILES['myfile']['name'];
+
+    // destination of the file on the server
+    $destination = 'upload/' . $filename;
+
+    // get the file extension
+    $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+    // the physical file on a temporary uploads directory on the server
+    $file = $_FILES['myfile']['tmp_name'];
+    //echo "$file";
+    $size = $_FILES['myfile']['size'];
+
+    if (!in_array($extension, ['zip', 'pdf', 'docx','jpg', 'png', 'jpeg', 'pdf', 'doc', 'docx'])) {
+
+       // $uploadStatus = 0; 
+        echo "You file extension must be .zip, .pdf or .docx";
+        //$response['message'] = "You file extension must be .zip, .pdf or .docx";
+
+    } elseif ($_FILES['myfile']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
+        
+        //$uploadStatus = 0; 
+        echo "File too large!";
+        //$response['message'] ="File too large!";
+
+    } else {
+
+        // move the uploaded (temporary) file to the specified destination
+        if (move_uploaded_file($file, $destination)) {
+
+            $sql2="SELECT id FROM files WHERE id=(SELECT max(id) FROM files)";
+            // szukam wolnego id 
+            $find = $connect->prepare($sql2);
+            $find ->execute();
+
+            //$row = mysqli_fetch_row(mysqli_query($connect,  "SELECT id FROM files WHERE id=(SELECT max(id) FROM files)"));
+            echo " dupxxx";
+            print("PDO::FETCH_ASSOC: ");
+            
+            print(" . $find . ");
+            
+            /*while($row = $find -> fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)){
+                //$data = $row[0];
+                echo " dupaaaa ";
+                print $data;
+               // $nextFreeID = $row[0]+1;
+            }*/
+            //print_r($row);
+            //$nextFreeID = $x+1;
+
+            
+            // wstawiam file
+            $sql = "INSERT INTO files (id, name, id_uzt) VALUES ('$nextFreeID','$filename',  0)";
+            if ($connect->prepare($sql)) {
+                echo "File uploaded successfully";
+                //echo '<script>alert("Welcome to Geeks for Geeks")</script>';
+                //header('Location: files.php');
+                //$uploadStatus = 1;
+               // $response['message'] = "File uploaded successfully";
+            }
+        } 
+        else 
+        {
+           // $uploadStatus = 0; 
+            echo "Failed to upload file.";
+           // $response['message'] = "Failed to upload file.";
+        }
+    }
+    //echo json_encode($response);
+
+}
+
+
+// Downloads files
+if (isset($_GET['file_id'])) {
+    $id = $_GET['file_id'];
+
+    // fetch file to download from database
+    $sql = "SELECT * FROM files WHERE id=$id";
+    $result = mysqli_query($conn, $sql);
+
+    $file = mysqli_fetch_assoc($result);
+    $filepath = 'uploads/' . $file['name'];
+
+    if (file_exists($filepath)) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($filepath));
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize('uploads/' . $file['name']));
+        readfile('uploads/' . $file['name']);
+
+        // Now update downloads count
+        //$newCount = $file['downloads'] + 1;
+       // $updateQuery = "UPDATE files SET downloads=$newCount WHERE id=$id";
+       // mysqli_query($conn, $updateQuery);
+        exit;
+    }
+
+}
+?>
+</html>
