@@ -1,0 +1,93 @@
+body {
+    font-size: 10px;
+  }
+header{
+    background-color: pink;
+    font-size: 50px;
+    text-align:left;
+    color: black;
+    flex: 50%;
+
+}
+.artykul{
+    background-color: lightblue;
+    flex: 30%;
+    font-size: 30px;
+}
+#menu{
+    background-color: rosybrown;
+    font-size: 20px;
+    text-align: center;
+    
+}
+#panel, #panel1{
+    width: 400px;
+    margin: 0;
+    padding: 0;      
+}
+
+label{
+    display: block; /* wlasciwosc wyswietlania*/
+    width: 260px;
+    padding: 10px 20px;
+    color: slategrey;
+    font-size: 16px;
+}
+#firstname, #lastname, #mail, #username, #username1, #password, #password1,#password2, #pesel{
+    display: block;
+    width: 360px;
+    margin: auto;
+    padding: 10px 5px;
+}
+input[type="submit"] {
+    position:relative;
+    left: 300px;
+    
+}
+
+.side{
+    background-color: aquamarine;
+    flex: 27%;
+    font-size: 30px
+}
+main{
+    display: flex;
+}
+footer{
+    background-color: cornflowerblue;
+    flex: 30%;
+    font-size: 20px;
+    text-align:left;
+}
+
+p,body{ /* nie bedzie marginesow (białych lini) ramki to body*/
+    margin:0; /*zewwnetrzne*/
+    padding:0; /*wewnetrzne*/ 
+
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+li{
+    display: inline-block;
+    width: 20%;
+    line-break: normal; 
+    margin: 0;
+    padding: 0;
+}
+pre{
+    font-size: 20px;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{ /*wykonaj sie kiedy najedziesz myszka*/ 
+    background-color:darkgray;
+
+}
+#stopka{
+   display: flex; 
+}

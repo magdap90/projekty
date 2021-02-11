@@ -1,0 +1,82 @@
+header{
+    background-color: pink;
+    font-size: 80px;
+    text-align:left;
+    color: black;
+    flex: 50%;
+    font-family:fantasy;
+
+}
+#logowanie{
+    background-color: pink;
+    text-align:right;
+    color:brown;
+    font-size: 15px;
+    flex: 50%;
+}
+
+#menu{
+    background-color: rosybrown;
+    font-size: 20px;
+    text-align: center;
+    
+}
+#menuzalogowanego{
+    background-color: gray;
+    font-size: 20px;
+    text-align: center;
+}
+selection{
+   background-color: chocolate;
+    flex: 30%;
+}
+.artykul{
+    background-color: lightblue;
+    flex: 30%;
+    height: auto;
+}
+.side{
+    background-color: aquamarine;
+    flex: 30%;
+}
+main{
+    display: flex;
+}
+footer{
+    background-color: cornflowerblue;
+    flex: 30%;
+    font-size: 20px;
+    text-align:left;
+}
+
+p,body{ /* nie bedzie marginesow (białych lini) ramki to body*/
+    margin:0; /*zewwnetrzne*/
+    padding:0; /*wewnetrzne*/ 
+    text-align: center;
+
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+li{
+    display: inline-block;
+    width: 20%;
+    line-break: normal; 
+    margin: 0;
+    padding: 0;
+}
+a{
+    color: black;
+    text-decoration: none;
+    text-align:center;
+}
+a:hover{ /*wykonaj sie kiedy najedziesz myszka*/ 
+    background-color:darkgray;
+
+}
+#stopka{
+   display: flex; 
+}
+
